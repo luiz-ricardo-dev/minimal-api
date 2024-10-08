@@ -33,26 +33,22 @@ namespace minimal_api.Dominio.Servicos
         
         }
 
+        
+        public Administrador? BuscarPorId(int id)
+        {
+             return _contexto.Administradores.Where(v => v.Id == id).FirstOrDefault();
+        }
 
         public List<Administrador> Todos(int? pagina)
         {
-             var query =_contexto.Administradores.AsQueryable();
+           var query =_contexto.Administradores.AsQueryable();
            
             int itensPorPagina = 10;
 
             if(pagina != null)
-            {
-                     query = query.Skip(((int)pagina - 1) * itensPorPagina).Take(itensPorPagina);
-            }
-           
+                query = query.Skip(((int)pagina - 1) * itensPorPagina).Take(itensPorPagina);
 
             return query.ToList();
-        
-        }
-
-        public Administrador? BuscarPorId(int id)
-        {
-             return _contexto.Administradores.Where(v => v.Id == id).FirstOrDefault();
         }
     }
 }
